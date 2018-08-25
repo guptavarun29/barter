@@ -1,2 +1,57 @@
-<h1>Store#index</h1>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<h1 id = "h">Store#index</h1>
 <p>Find me in app/views/store/index.html.erb</p>
+<input type="text" name="city" id="city" placeholder="Name of city">
+<button id="submitWeather"> search city</button>
+<div id="showWeather"></div>
+<span class="error"></span>
+<script >
+	$(document).ready(function(){
+		$('#submitWeather').click(function(){
+			var city = $("#city").val();
+
+			if (city != '') {
+				$.ajax({
+                    url:"http://api.openweathermap.org/data/2.5/weather?q="+ city + "&units=metric" + "&APPID=63dea7c07aa1d031afaa7173b8accc8a" ,
+                    type: "GET" ,
+                    dataType: "jsonp", 
+                    success: function(data){
+                    	console.log(data.main.temp);
+                                         	
+                    	var temp = data.main.temp;
+                    	var humidity = data.main.humidity;
+                    	$('#showWeather').html(
+                            "<p>Current weather for   "  + data.name + " </p>" +
+
+                    		"<p>Temperature:  "  + temp + " Deg C </p> " +
+                    		
+                    		"<p>Humidity:  "  + humidity + " % </p>"  +
+                            "<p>Conditions:  "  + data.weather[0].description + " </p>"
+
+                    		);
+                    	
+
+                    	 
+
+
+                    }
+
+				});
+
+			}
+			else{
+				$("#error").html('feild cannot be empty');
+
+	         }
+
+	    })}) ;
+
+	
+
+</script>
