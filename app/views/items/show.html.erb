@@ -19,7 +19,9 @@
   <strong>Condition:</strong>
   <%= @item.condition %>
 </p>
-
+<div class="feature-image">
+        <%= image_tag(@item.image_url(:default)) %>
+      </div>
 <p>
   <strong>Title:</strong>
   <%= @item.title %>
