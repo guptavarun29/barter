@@ -1,3 +1,139 @@
+<% content_for :header do %>
+<section class="hero is-warning">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Check this out!
+      </h1>
+    </div>
+  </div>
+</section>
+<% end %>
+<% content_for :body_class, 'bg-light' %>
+
+<section class="section item-show">
+  <div class="columns">
+    <div class="column is-8">
+      <h1 class="title is-2"><%= @item.title %></h1>
+
+      <ul class="pv1">
+        <% if @item.brand? %>
+        <li class="inline-block pr3"><%= @item.brand %></li>
+        <% end %>
+
+        
+
+        <% if @item.condition? %>
+        <li class="inline-block pr3"><%= @item.condition %></li>
+        <% end %>
+      </ul>
+
+      <div class="feature-image">
+        <%= image_tag(@item.image_url(:default)) %>
+      </div>
+
+      <div class="content pa4 mt3 bg-white border-radius-3">
+
+      <h3 class="subtitle is-4">Description</h3>
+      <%= @item.description %>
+
+
+      <h3 class="subtitle is-4 pt5">Product Specs</h3>
+
+      <table class="table is-narrow">
+        <% if @item.condition %>
+        <tr>
+          <td class="has-text-weight-bold">Condition:</td>
+          <td><%= @item.condition %></td>
+        </tr>
+        <% end %>
+
+        
+
+        <% if @item.brand %>
+          <tr>
+            <td class="has-text-weight-bold">Brand:</td>
+            <td><%= @item.brand %></td>
+          </tr>
+        <% end %>
+
+        
+      </table>
+    </div>
+    </div>
+    <div class="column is-3 is-offset-0">
+      <div class="bg-white pa4 border-radius-3">
+        <h4 class="title is-5 has-text-centered">Rs.<%= @item.price %></h4>
+        <p class="has-text-centered mb4">Sold by <%= @item.user.email %></p>
+        <%= link_to 'Add item to cart', cart_create_path(:iid => @item.id), class: 'button is-warning add-to-cart' %>
+      </div>
+      
+
+
+
+
+
+
+  
+      <div class="bg-white pa4 border-radius-3">
+        <h4 class="title is-5 has-text-centered">Do you have query?</h4>
+
+
+    <% if user_signed_in? && current_user.id != @item.user_id %>
+      <%= button_to "Message Seller ", conversations_path(sender_id: current_user.id, recipient_id: @item.user.id), method: 'post', class: 'button is-warning add-to-cart' %>
+    <% elsif user_signed_in? && current_user.id == @item.user_id  %>
+      <%=button_to "Conversations", conversations_path , class: 'button is-warning add-to-cart' %>
+  
+    <% end %>
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <% if current_user.id == @item.user_id%>
+    <%= link_to 'Edit', edit_item_path(@item), class: 'button' %>
+  <% end %>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
 <p id="notice"><%= notice %></p>
 
 <p>

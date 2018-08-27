@@ -1,19 +1,130 @@
-<h1>Cart#show</h1>
-<p>Find me in app/views/cart/show.html.erb</p>
+<% content_for :header do %>
+<section class="hero is-warning">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Your Cart
+      </h1>
+    </div>
+  </div>
+</section>
+<% end %>
+
+<div class="keep-shopping pv1 mt4 has-text-right">
+  <%= link_to 'Keep Shopping', items_path, class: 'button is-warning' %>
+</div>
+<hr />
+<section class="section">
+ 
+<% abc = 0 %> 
+<% num = 0 %>
 <% @cart.each do |cart| %>
 <% if cart.user_id == current_user.id %>
-  Owner id
- <%= cart.user_id  %>
- item number
- <%= cart.item_id%>
- Current user id
- <%= current_user.id%> 
 
- <%=cart.item.title %>
- <%=cart.item.description %>
- <%=cart.item.price %>
- <%=cart.item.image %>
+   <div class="columns align-items-center">
+   <div class="column is-1">
+   <% num = num+ 1 %>
+   <%= num  %>
+   </div>
+   <div class="column is-2">
+    <figure class="is-128x128 image">
+    	
+      <%= image_tag(cart.item.image_url(:thumb)) %>
+       
+    </figure>
+   </div>
+   <div class="column is-9">
+    <strong><%= cart.item.title %></strong>
+    <div class="columns align-items-center">
+      <div class="content column is-9">
+        <%= truncate(cart.item.description, length: 140) %>
+      </div>
+      <div class="column is-3 has-text-right">
+        <strong class="f4">Rs.<%= cart.item.price %><% abc = abc +cart.item.price %></strong>
+      </div>
+    </div>
+  </div>
+ </div>
+
+<div class="has-text-right">
+  <%= link_to 'Remove Item', "#{cart.id}", method: :delete, data: { confirm: "Are you sure? " }, class: "button is-small mb4" %>
+  
+</div>
+
+<hr/ >
+
+ 
+
+
+<% end %> 
+<% end %> 
+
+
+  <div class="columns">
+    <div class="column">
+      <%= link_to 'Empty Cart', '#' , class: "button is-danger" %>
+    </div>
+    <div class="column total has-text-right">
+      <h4 class="title is-4">
+
+        <span class="f5 has-text-grey">Total: Rs.</span> <%= abc %>
+      </h4>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<% content_for :body_class, 'bg-light' %>
+
+ <p>Find me in app/views/cart/show.html.erb</p>
+ <% @cart.each do |cart| %>
+  <% if cart.user_id == current_user.id %>
+   Owner id
+   <%= cart.user_id  %>
+   item number
+   <%= cart.item_id%>
+   Current user id
+   <%= current_user.id%> 
+
+   <%=cart.item.title %>
+   <%=cart.item.description %>
+   <%=cart.item.price %>
+   <%=cart.item.image %>
+  <% end %>
 <% end %> 
  
 
-<% end %>

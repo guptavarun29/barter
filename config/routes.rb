@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'cart/show'
   get 'cart/create'
+  delete 'cart/:id'  => 'cart#destory'
   resources :items
   devise_for :users
   resources :conversations do

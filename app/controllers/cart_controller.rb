@@ -12,4 +12,10 @@ class CartController < ApplicationController
   	redirect_to cart_show_path
 
   end
+
+  def destroy
+    @cart = Cart.find(params[:id])
+    @cart.destroy
+    redirect_to cart_show_path
+  end  
 end
